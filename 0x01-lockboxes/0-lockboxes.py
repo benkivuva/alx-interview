@@ -4,6 +4,7 @@ Module containing the canUnlockAll function to determine if all
 boxes can be opened.
 """
 
+
 def canUnlockAll(boxes):
     """
     Determines if all boxes can be opened.
