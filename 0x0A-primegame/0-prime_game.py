@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" Prime Game """
+"""
+Prime Game Module: Defines function that determines the winner after a certain
+number of rounds of playing the Prime Game.
+"""
 
 
 def is_prime(num):
@@ -13,24 +16,38 @@ def is_prime(num):
 
 
 def isWinner(x, nums):
-    """ Determine the winner of the prime game """
-    maria_wins = 0
-    ben_wins = 0
-
+    """
+    Determines the winner after a certain number of rounds
+    of playing the Prime Game
+    The Prime Game is a list of consecutive ints starting from 1 up to and
+    including n. Players take turns picking prime numbers, which removes
+    that number and all multiples of that number from the set. The player that
+    has no more prime numbers to choose loses the game.
+    Maria and Ben are playing the game, and Maria always goes first.
+    Given the number of rounds, n, determine who the winner is.
+    parameters:
+        x [int]:
+            the number of rounds
+        nums [list of ints]:
+            list of all ns for each round
+    returns:
+        the name of the player that won the most rounds,
+        if both players play optimally,
+        or None, if the winner cannot be determined
+    """
+    if not nums or x < 1:  # if nums is empty or x is less than 1
+        return None
+    winner_count = {"Maria": 0, "Ben": 0}
     for n in nums:
-        # Count the number of primes up to n
         primes_count = sum(1 for i in range(2, n + 1) if is_prime(i))
-
-        # Determine the winner based on the number of primes
         if primes_count % 2 == 0:
-            ben_wins += 1
+            winner_count["Ben"] += 1
         else:
-            maria_wins += 1
+            winner_count["Maria"] += 1
 
-    # Determine the player with the most wins
-    if maria_wins > ben_wins:
+    if winner_count["Maria"] > winner_count["Ben"]:
         return "Maria"
-    elif ben_wins > maria_wins:
+    elif winner_count["Ben"] > winner_count["Maria"]:
         return "Ben"
     else:
         return None
